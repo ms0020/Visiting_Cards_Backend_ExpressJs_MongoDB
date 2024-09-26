@@ -26,6 +26,7 @@ const addVisitingCard = async (req, res) => {
   }
 };
 
+
 // Get All Visiting Cards
 const fetchAllVisitingCards = async (req, res) => {
   try {
@@ -55,6 +56,7 @@ const getVisitingCardById = async (req, res) => {
     res.status(500).json({ message: 'Error fetching visiting card', error });
   }
 };
+
 
 // Update Visiting Card
 const updateVisitingCard = async (req, res) => {
@@ -86,6 +88,7 @@ const updateVisitingCard = async (req, res) => {
   }
 };
 
+
 // Delete Visiting Card
 const deleteVisitingCard = async (req, res) => {
   const { id } = req.params;
@@ -106,15 +109,15 @@ const deleteVisitingCard = async (req, res) => {
 };
 
 
+// Get visiting cards by day, month & given date range
 const getVisitingCardsByDate = async (req, res) => {
-  const { day, month, startDate, endDate } = req.query;
+  const { day, month, startDate, endDate } = req.body;
 
   try {
     let filter = {};
 
-    // Filter by day and month if provided
     if (day && month) {
-      const year = new Date().getFullYear(); // Use current year for filtering
+      const year = new Date().getFullYear();
       const startOfDay = new Date(year, month - 1, day, 0, 0, 0);
       const endOfDay = new Date(year, month - 1, day, 23, 59, 59);
 
@@ -123,18 +126,16 @@ const getVisitingCardsByDate = async (req, res) => {
         $lte: endOfDay
       };
     }
-    // Filter by month if only the month is provided
     else if (month) {
-      const year = new Date().getFullYear(); // Use current year for filtering
+      const year = new Date().getFullYear();
       const startOfMonth = new Date(year, month - 1, 1, 0, 0, 0);
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59); // Last day of the month
+      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
       filter.createdAt = {
         $gte: startOfMonth,
         $lte: endOfMonth
       };
     }
-    // Filter by startDate and endDate if provided
     else if (startDate && endDate) {
       filter.createdAt = {
         $gte: new Date(startDate),
@@ -142,17 +143,14 @@ const getVisitingCardsByDate = async (req, res) => {
       };
     }
 
-    // Fetch visiting cards based on filters
     const visitingCards = await VisitingCard.find(filter).populate('user_id', 'name email');
-    
+
     res.status(200).json(visitingCards);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error fetching visiting cards', error });
   }
 };
-
-
 
 
 module.exports = {
@@ -163,5 +161,3 @@ module.exports = {
   deleteVisitingCard,
   getVisitingCardsByDate
 };
-
-

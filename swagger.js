@@ -11,11 +11,13 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:8080" // Change base URL
+                url: "http://localhost:8080",
+                description: 'Visiting Cards APIs'
             },
         ],
     },
     apis: [
+        './routes/authRoutes.js',
         './routes/visitingCardRoutes.js'
     ]
 };

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const { generateToken } = require('../config/jwt');
 require("dotenv").config();
 
-
+// User Registration
 const userRegistration = async (req, res) => {
     const { name, email, mobile, password } = req.body;
 
@@ -44,7 +44,7 @@ const userRegistration = async (req, res) => {
     }
 };
 
-
+// User Sign-In
 const userSignIn = async (req, res) => {
     const { email, mobile, password } = req.body;
 
@@ -75,6 +75,7 @@ const userSignIn = async (req, res) => {
 };
 
 
+// Fetch all users
 const getAllUsers = async (req, res) => {
     try {
         const allUsers = await User.find();
@@ -85,6 +86,7 @@ const getAllUsers = async (req, res) => {
 };
 
 
+// Fetch user by ID
 const getUserById = async (req, res) => {
     const { id } = req.params;
 
@@ -104,6 +106,7 @@ const getUserById = async (req, res) => {
 };
 
 
+// Update user by ID
 const updateUser = async (req, res) => {
     const { id } = req.params;
     const { email, mobile, password } = req.body;
@@ -132,6 +135,7 @@ const updateUser = async (req, res) => {
 };
 
 
+// Delete user by ID
 const deleteUser = async (req, res) => {
     const { id } = req.params;
 
