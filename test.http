@@ -1,0 +1,31 @@
+### ADD VISITING CARD
+POST http://localhost:8080/api/visiting_card/add_visiting_card HTTP/1.1
+Content-Type: application/json
+ 
+{
+  "company_name": "xyz",
+  "email_address": "xyz_company@gmail.com",
+  "phone_number": "9865713958"
+}
+
+### GET ALL VISITING CARDS
+GET http://localhost:8080/api/visiting_card/get_all_visiting_cards HTTP/1.1
+
+### GET SINGLE VISITING CARD
+GET http://localhost:8080/api/visiting_card/66e9a8df0ff265461b554/get_visiting_card_by_id HTTP/1.1
+
+### UPDATE ITEM
+PUT http://localhost:8080/api/visiting_card/66bc8fc31561863b7ad7d/update_visiting_card HTTP/1.1
+Content-Type: application/json
+
+{
+  "company_name": "xyz",
+  "email_address": "xyz_company@gmail.com",
+  "phone_number": "9865713958"
+}
+
+### DELETE ITEM
+DELETE http://localhost:8080/api/visiting_card/66c19d90e55966251879617aa/delete_visiting_card HTTP/1.1
+ ++
+ 8
+  
